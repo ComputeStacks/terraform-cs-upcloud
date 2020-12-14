@@ -32,7 +32,7 @@ variable "plan_controller" {
 }
 variable "plan_controller_disk" {
 	type = number
-	default = 160 # Disk included with the 'g6-standard-4' plan.
+	default = 160 # Disk included with the '4xCPU-8GB' plan.
 }
 
 # Node
