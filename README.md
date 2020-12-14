@@ -30,6 +30,20 @@ However, you will still need to update all the other variables, such as:
 * Domain Names
 * Your company / brand identification
 
+## Before Running Ansible
+
+Upcloud's CentOS 7 template does not enable **selinux** by default. As part of the initial setup process, we install a startup script on each server that will:
+
+* Ensure our required packages are installed (these are required to run the ansible script)
+* Enable **selinux**
+* Reboot to apply
+
+Before proceeding with the ansible script process, you need to verify that all servers have been rebooted with **selinux** enabled. This will tell you that the installation process has been completed.
+
+In our experience, these scripts are run anywhere from 2-10 minutes after the server booted. 
+
+To verify, please SSH in and check that **selinux** is enabled by running `sestatus`. If this is enabled, then you know the process has completed.
+
 ## API Notes
 
 Use these to determine values for the terraform configuration file.
