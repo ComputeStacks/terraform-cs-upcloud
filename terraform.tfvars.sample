@@ -1,0 +1,10 @@
+upcloud_username = "USERNAME"
+upcloud_password = "PASSWORD"
+
+region = "us-sjo1"
+
+ssh_keys = [
+    "YOUR SSH KEY"
+  ]
+
+node_count = 1
