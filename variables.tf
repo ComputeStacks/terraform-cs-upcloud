@@ -69,6 +69,38 @@ variable "plan_backup_disk" {
 	default = 80
 }
 
+# Prometheus & Loki
+variable "dedicated_metrics_server" {
+	type = bool
+	default = true # false = place loki/prom on the controller
+}
+
+variable "plan_metrics" {
+	type = string
+	default = "2xCPU-4GB"
+}
+
+variable "plan_metrics_disk" {
+	type = number
+	default = 80
+}
+
+# Registry
+variable "dedicated_registry_server" {
+	type = bool
+	default = true # false = place loki/prom on the controller
+}
+
+variable "plan_registry" {
+	type = string
+	default = "2xCPU-4GB"
+}
+
+variable "plan_registry_disk" {
+	type = number
+	default = 80
+}
+
 # Misc
 variable "init_script" {
 	type = string
@@ -78,4 +110,61 @@ variable "init_script" {
 variable "template_id" {
 	type = string
 	default = "01000000-0000-4000-8000-000050010300" # CentOS 7
+}
+
+##
+# ComputeStacks
+variable "license_key" {
+	type = string
+	default = ""
+}
+variable "region_name" {
+	type = string
+	default = "upcloud"
+}
+variable "zone_name" {
+	type = string
+}
+variable "cs_app_url" {
+	type = string
+	default = "a.upcloud"
+}
+variable "cs_currency" {
+	type = string
+	default = "USD"
+}
+variable "cs_network_range" {
+	type = string
+	default = "10.100.10.0/24"
+}
+variable "cs_portal_domain" {
+	type = string
+	default = "portal.upcloud"
+}
+variable "cs_registry_domain" {
+	type = string
+	default = "cr.upcloud"
+}
+variable "cs_metrics_domain" {
+	type = string
+	default = "metrics.upcloud"
+}
+
+##
+# SSL
+variable "use_zerossl" {
+	type = bool
+	default = true
+}
+variable "acme_challenge_method" {
+	type = string
+	default = "http"
+}
+variable "acme_cf_token" {
+	type = string
+	default = ""
+}
+variable "acme_cf_account" {
+	type = string
+	default = ""
 }

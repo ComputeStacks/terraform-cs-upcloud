@@ -2,32 +2,13 @@ terraform {
   required_providers {
     upcloud = {
       source  = "UpCloudLtd/upcloud"
-      version = "~> 1.0"
+      version = "~> 2.0"
     }
   }
 }
 provider "upcloud" {
 	username = var.upcloud_username
   password = var.upcloud_password
-}
-
-##
-# Network
-resource "upcloud_network" "cs_network" {
-  name = "cs_network"
-  zone = var.region
-
-  ip_network {
-    address = var.private_network
-    dhcp = true
-    dhcp_default_route = false
-    family  = "IPv4"
-    gateway = var.private_network_gateway
-  }
-}
-
-resource "upcloud_floating_ip_address" "cluster_vip" {
-	mac_address = upcloud_server.node_cluster[0].network_interface[0].mac_address
 }
 
 ##
@@ -47,4 +28,12 @@ resource "random_string" "prometheus_password" {
 resource "random_string" "backup_key" {
     length  = 24
     special = true
+}
+resource "random_string" "app_id" {
+    length  = 8
+    special = false
+}
+resource "random_string" "network_name" {
+    length  = 6
+    special = false
 }

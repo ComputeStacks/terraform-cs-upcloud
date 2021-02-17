@@ -7,11 +7,10 @@ resource "upcloud_server" "controller" {
     keys = var.ssh_keys
     create_password = false
   }
-  storage_devices {
-    size = var.plan_controller_disk
+  template {
     storage = var.template_id
-    tier = "maxiops"
-    action = "clone"
+    size = var.plan_controller_disk
+    title = "controller boot"
   }
 	user_data = var.init_script
 	network_interface {
@@ -33,11 +32,10 @@ resource "upcloud_server" "backup" {
     keys = var.ssh_keys
     create_password = false
   }
-  storage_devices {
-    size = var.plan_backup_disk
+  template {
     storage = var.template_id
-    tier = "maxiops"
-    action = "clone"
+    size = var.plan_backup_disk
+    title = "backup boot"
   }
 	user_data = var.init_script
 	network_interface {
@@ -60,11 +58,63 @@ resource "upcloud_server" "node_cluster" {
     keys = var.ssh_keys
     create_password = false
   }
-  storage_devices {
-    size = var.plan_node_disk
+  template {
     storage = var.template_id
-    tier = "maxiops"
-    action = "clone"
+    size = var.plan_node_disk
+    title = format("node%s%s boot", var.node_base_name, count.index + 1)
+  }
+	network_interface {
+		type = "public"
+	}
+	network_interface {
+		type = "private"
+		network = upcloud_network.cs_network.id
+		source_ip_filtering = false
+	}
+	user_data = var.init_script
+}
+
+resource "upcloud_server" "metrics" {
+	count = var.dedicated_metrics_server ? 1 : 0
+  zone = var.region
+  hostname = format("metrics%s%s", var.node_base_name, count.index + 1)
+  plan = var.plan_metrics
+  login {
+    user = "root"
+    keys = var.ssh_keys
+    create_password = false
+  }
+  template {
+    storage = var.template_id
+    size = var.plan_metrics_disk
+    title = format("metrics%s%s boot", var.node_base_name, count.index + 1)
+  }
+	network_interface {
+		type = "public"
+	}
+	network_interface {
+		type = "private"
+		network = upcloud_network.cs_network.id
+		source_ip_filtering = false
+	}
+	user_data = var.init_script
+}
+
+
+resource "upcloud_server" "registries" {
+	count = var.dedicated_registry_server ? 1 : 0
+  zone = var.region
+  hostname = "registry"
+  plan = var.plan_registry
+  login {
+    user = "root"
+    keys = var.ssh_keys
+    create_password = false
+  }
+  template {
+    storage = var.template_id
+    size = var.plan_registry_disk
+    title = "registry boot"
   }
 	network_interface {
 		type = "public"

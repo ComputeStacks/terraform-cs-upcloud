@@ -21,14 +21,10 @@ terraform init
 terraform apply
 ```
 
-## Complete Your Cluster
+After terraform runs, you will see 2 newly created files under the `result/` directory.
 
-Once the process is completed, you will find an `inventory.yml` file in this directory. This will be filled in with the servers that were just created, as well as a few other things like new random passwords.
-
-However, you will still need to update all the other variables, such as:
-* License Key
-* Domain Names
-* Your company / brand identification
+1. `dns_settings.txt` | Your DNS settings, which must be applied prior to running the ansible package.
+2. `inventory.yml` | You will need this later when configuring Ansible.
 
 ## Before Running Ansible
 
@@ -40,13 +36,21 @@ Upcloud's CentOS 7 template does not enable **selinux** by default. As part of t
 
 Before proceeding with the ansible script process, you need to verify that all servers have been rebooted with **selinux** enabled. This will tell you that the installation process has been completed.
 
-In our experience, these scripts are run anywhere from 2-10 minutes after the server booted. 
-
 To verify, please SSH in and check that **selinux** is enabled by running `sestatus`. If this is enabled, then you know the process has completed.
 
 ## API Notes
 
 Use these to determine values for the terraform configuration file.
 
+* Available plans: `curl -u $UPCLOUD_USERNAME:$UPCLOUD_PASSWORD https://api.upcloud.com/1.3/plan`
 * Available templates: `curl -u $UPCLOUD_USERNAME:$UPCLOUD_PASSWORD https://api.upcloud.com/1.3/storage/template`
 * Available Zones: `curl -u $UPCLOUD_USERNAME:$UPCLOUD_PASSWORD https://api.upcloud.com/1.3/zone`
+
+### Tip: Direnv
+
+You can use [direnv](https://direnv.net/) to safely store environmental variables locally in this directory. 
+Once [direnv](https://direnv.net/) is installed: 
+
+  1) `mv .envrc.sample .envrc`
+  2) add your upcloud credentials, and;
+  3) `direnv allow .`. 

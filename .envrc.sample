@@ -1,0 +1,4 @@
+# This is used to help with using curl to discover plans and templates.
+# See README.md for examples.
+export UPCLOUD_USERNAME=""
+export UPCLOUD_PASSWORD=""
