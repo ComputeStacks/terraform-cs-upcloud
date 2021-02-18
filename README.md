@@ -28,6 +28,15 @@ After terraform runs, you will see 2 newly created files under the `result/` dir
 
 ## Before Running Ansible
 
+### Debian 10 (Default)
+
+During the initial boot process of your new droplets, ansible will be installed. This can take a few minutes to complete. 
+
+Please ensure that this process has completed _before_ running the ansible package. You can verify that this is completed by running: `tail -f /var/log/syslog`
+
+You can also confirm the process has completed by ensuring `which ansible` is successful.
+
+### CentOS 7
 Upcloud's CentOS 7 template does not enable **selinux** by default. As part of the initial setup process, we install a startup script on each server that will:
 
 * Ensure our required packages are installed (these are required to run the ansible script)
@@ -37,6 +46,8 @@ Upcloud's CentOS 7 template does not enable **selinux** by default. As part of t
 Before proceeding with the ansible script process, you need to verify that all servers have been rebooted with **selinux** enabled. This will tell you that the installation process has been completed.
 
 To verify, please SSH in and check that **selinux** is enabled by running `sestatus`. If this is enabled, then you know the process has completed.
+
+In addition to the Debian installer, `ansible` will be installed during the initial boot. Verify it exists with: `which ansible`.
 
 ## API Notes
 

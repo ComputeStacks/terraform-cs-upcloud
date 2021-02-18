@@ -15,6 +15,32 @@ variable "ssh_keys" {
 	default = []
 }
 
+##
+# Virtual Machine Image Selection
+
+# Default = Debian 10
+variable "image_default" {
+	type = bool
+	default = true
+}
+variable "centos_init_script" {
+	type = string
+	default = "yum -y update && yum -y install epel-release kernel-headers && yum -y install ansible && sed -i 's/SELINUX=.*/SELINUX=enforcing/g' /etc/selinux/config && touch /.autorelabel; reboot"
+}
+variable "debian_init_script" {
+	type = string
+	default = "apt update && apt -y install openssl ca-certificates linux-headers-amd64 python3 python3-pip python3-openssl python3-apt && pip3 install ansible"
+}
+
+variable "centos_template_id" {
+	type = string
+	default = "01000000-0000-4000-8000-000050010300"
+}
+variable "debian_template_id" {
+	type = string
+	default = "01000000-0000-4000-8000-000020050100"
+}
+
 variable "private_network" {
 	type = string
 	default = "10.0.0.0/24"
@@ -99,17 +125,6 @@ variable "plan_registry" {
 variable "plan_registry_disk" {
 	type = number
 	default = 80
-}
-
-# Misc
-variable "init_script" {
-	type = string
-	default = "yum -y update && yum -y install epel-release kernel-headers && yum -y install ansible && sed -i 's/SELINUX=.*/SELINUX=enforcing/g' /etc/selinux/config && touch /.autorelabel; reboot"
-}
-
-variable "template_id" {
-	type = string
-	default = "01000000-0000-4000-8000-000050010300" # CentOS 7
 }
 
 ##

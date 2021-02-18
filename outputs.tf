@@ -33,6 +33,7 @@ resource "local_file" "Inventory" {
 		acme_challenge_method = var.acme_challenge_method,
 		acme_cf_account = var.acme_cf_account,
 		acme_cf_token = var.acme_cf_token,
+		default_image = var.image_default
 	})
 	filename = "result/inventory.yml"
 }
@@ -48,7 +49,7 @@ resource "local_file" "dns_settings" {
 		nodes_public = upcloud_server.node_cluster.*.network_interface[*][0].ip_address,
 		controller_public = upcloud_server.controller.network_interface[0].ip_address,
 		metrics_public = upcloud_server.metrics.*.network_interface[*][0].ip_address,
-		registry_public = upcloud_server.registries.*.network_interface[*][0].ip_address,
+		registry_public = upcloud_server.registries.*.network_interface[*][0].ip_address
 	})
 	filename = "result/dns_settings.txt"
 }
