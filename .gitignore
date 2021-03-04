@@ -5,3 +5,4 @@ terraform.tfstate*
 terraform.tfvars
 inventory.yml
 .envrc
+do-dns.tf

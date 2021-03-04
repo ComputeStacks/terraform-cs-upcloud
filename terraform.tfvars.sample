@@ -73,3 +73,7 @@ cs_metrics_domain = "metrics.upcloud" # ${cs_metrics_domain}.${zone_name}
 # acme_cf_token = "" # API Token
 # acme_cf_account = "" # Account ID
 
+##
+# CS User
+cs_admin_create = true
+cs_admin_email = "root@localhost"

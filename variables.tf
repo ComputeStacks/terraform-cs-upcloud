@@ -165,6 +165,16 @@ variable "cs_metrics_domain" {
 	default = "metrics.upcloud"
 }
 
+# Admin User
+variable "cs_admin_create" {
+	type = bool
+	default = true
+}
+variable "cs_admin_email" {
+	type = string
+	default = "root@localhost"
+}
+
 ##
 # SSL
 variable "use_zerossl" {

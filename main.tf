@@ -4,6 +4,10 @@ terraform {
       source  = "UpCloudLtd/upcloud"
       version = "~> 2.0"
     }
+    digitalocean = {
+      source  = "digitalocean/digitalocean"
+      version = "~> 2.5"
+    }
   }
 }
 provider "upcloud" {
@@ -36,4 +40,8 @@ resource "random_string" "app_id" {
 resource "random_string" "network_name" {
     length  = 6
     special = false
+}
+resource "random_string" "cs_admin_password" {
+    length  = 12
+    special = true
 }
