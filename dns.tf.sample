@@ -27,14 +27,14 @@ resource "digitalocean_record" "zone_registry_ipv4" {
     name = var.cs_registry_domain
     type = "A"
     ttl = 90
-    value = var.dedicated_registry_server ? upcloud_server.registries.*.network_interface[0].ip_address : upcloud_server.controller.network_interface[0].ip_address
+    value = var.dedicated_registry_server ? upcloud_server.registries.*.network_interface[0][0].ip_address : upcloud_server.controller.network_interface[0].ip_address
 }
 resource "digitalocean_record" "zone_metrics_ipv4" {
     domain = var.zone_name
     name = var.cs_metrics_domain
     type = "A"
     ttl = 90
-    value = var.dedicated_metrics_server ? upcloud_server.metrics.*.network_interface[0].ip_address : upcloud_server.controller.network_interface[0].ip_address
+    value = var.dedicated_metrics_server ? upcloud_server.metrics.*.network_interface[0][0].ip_address : upcloud_server.controller.network_interface[0].ip_address
 }
 resource "digitalocean_record" "zone_app" {
     domain = var.zone_name
