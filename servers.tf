@@ -8,11 +8,11 @@ resource "upcloud_server" "controller" {
     create_password = false
   }
   template {
-    storage = var.image_default ? var.debian_template_id : var.centos_template_id
+    storage = var.debian_template_id
     size = var.plan_controller_disk
     title = "controller boot"
   }
-	user_data = var.image_default ? var.debian_init_script : var.centos_init_script
+	user_data = var.debian_init_script
 	network_interface {
 		type = "public"
 	}
@@ -33,11 +33,11 @@ resource "upcloud_server" "backup" {
     create_password = false
   }
   template {
-    storage = var.image_default ? var.debian_template_id : var.centos_template_id
+    storage = var.debian_template_id
     size = var.plan_backup_disk
     title = "backup boot"
   }
-	user_data = var.image_default ? var.debian_init_script : var.centos_init_script
+	user_data = var.debian_init_script
 	network_interface {
 		type = "public"
 	}
@@ -59,7 +59,7 @@ resource "upcloud_server" "node_cluster" {
     create_password = false
   }
   template {
-    storage = var.image_default ? var.debian_template_id : var.centos_template_id
+    storage = var.debian_template_id
     size = var.plan_node_disk
     title = format("node%s%s boot", var.node_base_name, count.index + 1)
   }
@@ -71,7 +71,7 @@ resource "upcloud_server" "node_cluster" {
 		network = upcloud_network.cs_network.id
 		source_ip_filtering = false
 	}
-	user_data = var.image_default ? var.debian_init_script : var.centos_init_script
+	user_data = var.debian_init_script
 }
 
 resource "upcloud_server" "metrics" {
@@ -85,7 +85,7 @@ resource "upcloud_server" "metrics" {
     create_password = false
   }
   template {
-    storage = var.image_default ? var.debian_template_id : var.centos_template_id
+    storage = var.debian_template_id
     size = var.plan_metrics_disk
     title = format("metrics%s%s boot", var.node_base_name, count.index + 1)
   }
@@ -97,7 +97,7 @@ resource "upcloud_server" "metrics" {
 		network = upcloud_network.cs_network.id
 		source_ip_filtering = false
 	}
-	user_data = var.image_default ? var.debian_init_script : var.centos_init_script
+	user_data = var.debian_init_script
 }
 
 
@@ -112,7 +112,7 @@ resource "upcloud_server" "registries" {
     create_password = false
   }
   template {
-    storage = var.image_default ? var.debian_template_id : var.centos_template_id
+    storage = var.debian_template_id
     size = var.plan_registry_disk
     title = "registry boot"
   }
@@ -124,5 +124,5 @@ resource "upcloud_server" "registries" {
 		network = upcloud_network.cs_network.id
 		source_ip_filtering = false
 	}
-	user_data = var.image_default ? var.debian_init_script : var.centos_init_script
+	user_data = var.debian_init_script
 }

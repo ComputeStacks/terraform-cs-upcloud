@@ -33,7 +33,6 @@ resource "local_file" "Inventory" {
 		acme_challenge_method = var.acme_challenge_method,
 		acme_cf_account = var.acme_cf_account,
 		acme_cf_token = var.acme_cf_token,
-		default_image = var.image_default,
 		cs_admin_create = var.cs_admin_create,
 		cs_admin_email = var.cs_admin_email,
 		cs_admin_password = random_string.cs_admin_password.result

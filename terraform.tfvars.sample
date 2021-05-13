@@ -3,11 +3,6 @@ upcloud_password = "PASSWORD"
 
 region = "us-sjo1"
 
-##
-# To use CentOS 7 instead of the default Debian 10 installation,
-# set the following to false:
-image_default = true
-
 ssh_keys = [
     "YOUR SSH KEY"
   ]
