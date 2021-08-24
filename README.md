@@ -1,3 +1,5 @@
+NOTE: UpCloud has not yet released a debian 11 (bullseye) image. Until then, please manually upgrade the created debian 10 virtual machines to debian 11 prior to running our ansible installation process.
+
 # Deploying ComputeStacks on UpCloud
 
 Create a `terraform.tfvars` file and adjust the settings appropriately. Specifically, you will:
