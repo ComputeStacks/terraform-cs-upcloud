@@ -21,29 +21,27 @@ plan_backup = "1xCPU-1GB"
 plan_backup_disk = 50 # 50GB is included with this plan.
 
 # Metrics
-dedicated_metrics_server = true # Set to false to run prometheus & loki on the controller.
 plan_metrics = "2xCPU-4GB"
 plan_metrics_disk = 80 # 80GB is included with this plan.
 
 # Registry
-dedicated_registry_server = true # Set to false to run the container registry on the controller.
 plan_registry = "2xCPU-4GB"
 plan_registry_disk = 80 # 80GB is included with this plan.
 
+# NS Servers
+plan_nameserver = "1xCPU-1GB"
+plan_nameserver_disk = 25
 
 ##
 # ComputeStacks
 cs_currency = "USD"
-
-# Your ComputeStacks License Key (https://accounts.computestacks.com/store/computestacks)
-license_key = ""
 
 # The region name. Should be lower case, without spaces, and only '-' and '_' characters
 region_name = "upcloud"
 
 ##
 # Domains
-zone_name = "cmptstks.net"
+zone_name = "example.net"
 
 # Each container will receive a unique subdomain from this domain by default.
 # We also need to tell CS what the zone file is in order to provision wildcard SSL for the load balancer.
@@ -59,16 +57,12 @@ cs_registry_domain = "cr.upcloud" # ${cs_registry_domain}.${zone_name}
 # We ask for a domain so that we may generate a LetsEncrypt certificate for it
 cs_metrics_domain = "metrics.upcloud" # ${cs_metrics_domain}.${zone_name}
 
-##
-# SSL Settings
-# use_zerossl = true
-# acme_challenge_method = "http" # or 'cloudflare' for dns challenge.
-
-# # Use Cloudflare Dns Challenge
-# acme_cf_token = "" # API Token
-# acme_cf_account = "" # Account ID
+# PowerDNS
+primary_nameserver_zone = "example.net"
+primary_nameserver_domain = "ns1.upcloud"
+secondary_nameserver_zone = "example.org"
+secondary_nameserver_domain = "ns2.upcloud"
 
 ##
 # CS User
-cs_admin_create = true
 cs_admin_email = "root@localhost"

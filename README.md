@@ -1,5 +1,3 @@
-NOTE: UpCloud has not yet released a debian 11 (bullseye) image. Until then, please manually upgrade the created debian 10 virtual machines to debian 11 prior to running our ansible installation process.
-
 # Deploying ComputeStacks on UpCloud
 
 Create a `terraform.tfvars` file and adjust the settings appropriately. Specifically, you will:
@@ -7,7 +5,13 @@ Create a `terraform.tfvars` file and adjust the settings appropriately. Specific
 * Choose the appropriate package for your servers
   * _NOTE:_ The packages set as the default in the `terraform.tfvars.sample` meet our minimum requirements. We do not recommend going below those, as that may prevent ComputeStacks from booting.
 * Specify how many nodes you want (we recommend 1, 3, or 5). If you need more resources, consider increasing the plan size, or creating multiple availability zones.
-* Choose your region
+* Choose your regions
+
+## (Optional) Auto-configure DNS
+
+You may wish to automatically configure your DNS records by using a terraform dns provider. Included here is an example file, `dns.tf.sample`. You may copy that to `dns.tf` and adjust accordingly. 
+
+By default, you will see the required DNS settings under `result/`.
 
 ## Setup Terraform
 

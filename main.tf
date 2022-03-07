@@ -2,11 +2,7 @@ terraform {
   required_providers {
     upcloud = {
       source  = "UpCloudLtd/upcloud"
-      version = "~> 2.0"
-    }
-    digitalocean = {
-      source  = "digitalocean/digitalocean"
-      version = "~> 2.8"
+      version = "~> 2.2"
     }
   }
 }
@@ -31,10 +27,6 @@ resource "random_string" "prometheus_password" {
 }
 resource "random_string" "backup_key" {
     length  = 24
-    special = true
-}
-resource "random_string" "app_id" {
-    length  = 8
     special = false
 }
 resource "random_string" "network_name" {
@@ -43,5 +35,10 @@ resource "random_string" "network_name" {
 }
 resource "random_string" "cs_admin_password" {
     length  = 12
-    special = true
+    special = false
+}
+
+resource "random_string" "app_id" {
+    length  = 12
+    special = false
 }
