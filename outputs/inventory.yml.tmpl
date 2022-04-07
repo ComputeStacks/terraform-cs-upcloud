@@ -84,6 +84,13 @@ all:
     #   - "192.168.10.33"
     # extra_allowed_ipv6_addresses:
     #   - "2600:3c01::f03c:92ff:feaa:fc7e"
+    
+    ##
+    # Restrict SSH to only allowed IPs and services created here?
+    #
+    # You may also allow individual servers by adding this to specific servers below.
+    # 
+    # default_allow_ssh: false # Default is true!
   children:
     backup_server:
       hosts:
@@ -112,12 +119,12 @@ all:
           # This may often times be separate than the primary public ip
           postgres_ip: ${nsone_public}
     follower_nameservers:
-        hosts: # Note that we only support 1 follower!
-          ${nstwo_public}:
-            pdns_name: "${secondary_nameserver_domain}"
-            enable_ipv6: true
-            ssh_port: 22      
-            postgres_ip: ${nstwo_public}
+      hosts: # Note that we only support 1 follower!
+        ${nstwo_public}:
+          pdns_name: "${secondary_nameserver_domain}"
+          enable_ipv6: true
+          ssh_port: 22      
+          postgres_ip: ${nstwo_public}
     metrics:
       hosts:
         ${metrics_public}:
