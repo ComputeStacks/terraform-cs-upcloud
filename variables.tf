@@ -109,11 +109,11 @@ variable "secondary_nameserver_domain" {
 # Backup
 variable "plan_backup" {
   type = string
-  default = "2xCPU-4GB"
+  default = "1xCPU-1GB"
 }
 variable "plan_backup_disk" {
   type = number
-  default = 80
+  default = 25
 }
 
 # Prometheus & Loki

@@ -18,7 +18,7 @@ plan_node_disk = 160 # 160GB is included with this plan.
 
 # Backup Server
 plan_backup = "1xCPU-1GB"
-plan_backup_disk = 50 # 50GB is included with this plan.
+plan_backup_disk = 25 # 25GB is included with this plan.
 
 # Metrics
 plan_metrics = "2xCPU-4GB"
