@@ -3,6 +3,11 @@ upcloud_password = "PASSWORD"
 
 region = "us-sjo1"
 
+##
+# VM SSH Connection Information
+# Generate SSH credentials for terraform
+# `ssh-keygen -q -C "${USER}@cstacks-terraform" -t ed25519 -N '' -f ~/.ssh/cstacks-terraform <<<y >/dev/null 2>&1 && cat ~/.ssh/cstacks-terraform && cat ~/.ssh/cstacks-terraform.pub`
+ssh_connection_priv_key_path = "~/.ssh/cstacks-terraform"
 ssh_keys = [
     "YOUR SSH KEY"
   ]
@@ -66,3 +71,8 @@ secondary_nameserver_domain = "ns2.upcloud"
 ##
 # CS User
 cs_admin_email = "root@localhost"
+
+##
+# Cloudflare
+cloudflare_api_token = ""
+cloudflare_account_id = ""

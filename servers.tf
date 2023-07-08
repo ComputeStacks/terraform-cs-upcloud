@@ -2,6 +2,7 @@ resource "upcloud_server" "controller" {
   zone = var.region
   hostname = "controller"
   plan = var.plan_controller
+  metadata = true
   login {
     user = "root"
     keys = var.ssh_keys
@@ -27,6 +28,7 @@ resource "upcloud_server" "backup" {
   zone = var.region
   hostname = "backup"
   plan = var.plan_backup
+  metadata = true
   login {
     user = "root"
     keys = var.ssh_keys
@@ -48,11 +50,11 @@ resource "upcloud_server" "backup" {
   }
 }
 
-resource "upcloud_server" "node_cluster" {
-  count = var.node_count
+resource "upcloud_server" "node" {
   zone = var.region
-  hostname = format("node%s%s", var.node_base_name, count.index + 1)
+  hostname = "node100"
   plan = var.plan_node
+  metadata = true
   login {
     user = "root"
     keys = var.ssh_keys
@@ -61,7 +63,7 @@ resource "upcloud_server" "node_cluster" {
   template {
     storage = var.debian_template_id
     size = var.plan_node_disk
-    title = format("node%s%s boot", var.node_base_name, count.index + 1)
+    title = "node100 boot"
   }
   network_interface {
     type = "public"
@@ -78,6 +80,7 @@ resource "upcloud_server" "metrics" {
   zone = var.region
   hostname = "metrics"
   plan = var.plan_metrics
+  metadata = true
   login {
     user = "root"
     keys = var.ssh_keys
@@ -103,6 +106,7 @@ resource "upcloud_server" "registry" {
   zone = var.region
   hostname = "registry"
   plan = var.plan_registry
+  metadata = true
   login {
     user = "root"
     keys = var.ssh_keys
@@ -128,6 +132,7 @@ resource "upcloud_server" "nsone" {
   zone = var.region
   hostname = "ns1"
   plan = var.plan_nameserver
+  metadata = true
   login {
     user = "root"
     keys = var.ssh_keys
@@ -147,6 +152,7 @@ resource "upcloud_server" "nstwo" {
   zone = var.region_nstwo
   hostname = "ns2"
   plan = var.plan_nameserver
+  metadata = true
   login {
     user = "root"
     keys = var.ssh_keys

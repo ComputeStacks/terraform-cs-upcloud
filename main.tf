@@ -1,16 +1,3 @@
-terraform {
-  required_providers {
-    upcloud = {
-      source  = "UpCloudLtd/upcloud"
-      version = "~> 2.2"
-    }
-  }
-}
-provider "upcloud" {
-	username = var.upcloud_username
-  password = var.upcloud_password
-}
-
 ##
 # Password Generation
 resource "random_string" "pg_password" {

@@ -10,6 +10,16 @@ variable "region" {
   default = "us-sjo1"
 }
 
+
+# ssh-keygen -q -C "${USER}@cstacks-terraform" -t ed25519 -N '' -f ~/.ssh/cstacks-terraform <<<y >/dev/null 2>&1 && cat ~/.ssh/cstacks-terraform.pub
+# Should also be installed into your DO Account and fingerprint listed above.
+# This is used to populate the inventory.yml file and will be used by Ansible to provision.
+variable "ssh_connection_priv_key_path" {
+  type = string
+  default = "~/.ssh/id_rsa"
+  description = "Path to your private key"
+}
+
 variable "ssh_keys" {
   type = list
   default = []
@@ -20,12 +30,12 @@ variable "ssh_keys" {
 
 variable "debian_init_script" {
   type = string
-  default = "apt update && apt -y install openssl ca-certificates linux-headers-amd64 python3 python3-pip python3-openssl python3-apt && pip3 install ansible"
+  default = "apt-get update && apt-get -y install apt-utils software-properties-common jq curl wget lsb-release iputils-ping vim openssl dnsutils ca-certificates linux-headers-amd64 python3 python3-pip python3-openssl python3-apt"
 }
 
 variable "debian_template_id" {
   type = string
-  default = "01000000-0000-4000-8000-000020060100"
+  default = "01000000-0000-4000-8000-000020070100"
 }
 
 variable "private_network" {
@@ -49,20 +59,6 @@ variable "plan_controller_disk" {
 }
 
 # Node
-variable "node_count" {
-  type = number
-  default = 1
-}
-# Used to create a consistent naming scheme for our nodes.
-# This is for our recommend hostname scheme for nodes:
-# * 3 digits for each node, following an identifier like 'node'.
-# * 1st digit is the region (e.g. 1, 2, 3)
-# * 2nd digit is the availability-zone
-# * 3rd digit is the node.
-variable "node_base_name" {
-  type = string
-  default = "10" # '10' would create node101, node102, node103, etc.
-}
 variable "plan_node" {
   type = string
   default = "2xCPU-4GB"
@@ -176,4 +172,22 @@ variable "cs_metrics_domain" {
 variable "cs_admin_email" {
   type = string
   default = "root@localhost"
+}
+
+##
+# CloudFlare Auto Provisioning
+#acme_cf_token: "" # API Token
+#acme_cf_account: "" # Account ID
+variable "cloudflare_api_token" {
+  type = string
+  default = ""
+}
+variable "cloudflare_account_id" {
+  type = string
+  default = ""
+}
+variable "cloudflare_proxied" {
+  type = bool
+  default = false
+  description = "Enable if you want cloudflare to proxy your traffic."
 }

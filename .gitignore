@@ -6,3 +6,5 @@ terraform.tfvars
 inventory.yml
 .envrc
 dns.tf
+dns_cloudflare.tf
+providers.tf

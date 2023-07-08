@@ -1,0 +1,76 @@
+##
+# Cloudflare DNS Management
+#
+# Uncomment to enable automatic provisioning of zone records.
+# If you wish to skip that, but still use cloudflare for ACME provisioning
+# in the ansible file, you can leave this commented out and still provide the
+# variables `cloudflare_api_token` and `cloudflare_account_id`.
+#
+
+data "cloudflare_zone" "zone" {
+  name = var.zone_name
+  account_id = var.cloudflare_account_id
+  lifecycle {
+    precondition {
+      condition = var.cloudflare_api_token != null
+      error_message = "Missing cloudflare_api_token"
+    }
+    precondition {
+      condition = var.cloudflare_account_id != null
+      error_message = "Missing cloudflare_account_id"
+    }
+  }
+}
+
+resource "cloudflare_record" "controller" {
+  zone_id = data.cloudflare_zone.zone.id
+  name = var.cs_portal_domain
+  type = "A"
+  value = upcloud_server.controller.network_interface[0].ip_address
+  proxied = var.cloudflare_proxied
+}
+
+resource "cloudflare_record" "registry" {
+  zone_id = data.cloudflare_zone.zone.id
+  name = var.cs_registry_domain
+  type = "A"
+  value = upcloud_server.registry.network_interface[0].ip_address
+  proxied = var.cloudflare_proxied
+}
+resource "cloudflare_record" "metrics" {
+  zone_id = data.cloudflare_zone.zone.id
+  name = var.cs_metrics_domain
+  type = "A"
+  value = upcloud_server.metrics.network_interface[0].ip_address
+  proxied = var.cloudflare_proxied
+}
+resource "cloudflare_record" "app" {
+  zone_id = data.cloudflare_zone.zone.id
+  name = var.cs_app_url
+  type = "A"
+  value = upcloud_server.node.network_interface[0].ip_address
+  proxied = var.cloudflare_proxied
+}
+resource "cloudflare_record" "app_wildcard" {
+  zone_id = data.cloudflare_zone.zone.id
+  name = format("*.%s", var.cs_app_url)
+  type = "CNAME"
+  value = format("%s.%s.", var.cs_app_url, var.zone_name)
+  proxied = var.cloudflare_proxied
+}
+
+resource "cloudflare_record" "ns1" {
+  zone_id = data.cloudflare_zone.zone.id
+  name = var.primary_nameserver_domain
+  type = "A"
+  value = upcloud_server.nsone.network_interface[0].ip_address
+  proxied = var.cloudflare_proxied
+}
+
+resource "cloudflare_record" "ns2" {
+  zone_id = data.cloudflare_zone.zone.id
+  name = var.secondary_nameserver_domain
+  type = "A"
+  value = upcloud_server.nstwo.network_interface[0].ip_address
+  proxied = var.cloudflare_proxied
+}

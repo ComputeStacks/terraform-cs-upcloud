@@ -10,7 +10,3 @@ resource "upcloud_network" "cs_network" {
     gateway = var.private_network_gateway
   }
 }
-
-resource "upcloud_floating_ip_address" "cluster_vip" {
-	mac_address = upcloud_server.node_cluster[0].network_interface[0].mac_address
-}
